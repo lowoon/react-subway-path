@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import StationInput from './StationInput';
 import SearchButton from './SearchButton';
 
+function reducer(state, action) {
+  return {
+    ...state,
+    [action.name]: action.value
+  };
+}
+
 function SearchContainer({ searchPathHandler }) {
-  const [source, setSource] = useState("");
-  const [target, setTarget] = useState("");
+  const [state, dispatch] = useReducer(reducer, {
+    source: '',
+    target: ''
+  });
 
-  const onSourceInputChange = value => {
-    setSource(value);
-  }
+  const { source, target } = state;
 
-  const onTargetInputChange = value => {
-    setTarget(value);
+  const onInputChange = event => {
+    dispatch(event.target)
   }
 
   const onClickSearchPath = () => {
-    const sourceInput = source;
-    const targetInput = target;
-    setSource("");
-    setTarget("");
-    searchPathHandler(sourceInput, targetInput);
+    searchPathHandler(source, target);
+    state.source = ''
+    state.target = ''
   }
 
   return (
@@ -27,15 +32,17 @@ function SearchContainer({ searchPathHandler }) {
       <div className="font-bold text-xl mb-4 text-center">지하철 경로 검색</div>
       <form className="bg-white mb-4">
         <div className="flex flex-wrap mb-3">
-          <StationInput onSourceInputChange={onSourceInputChange}
+          <StationInput onInputChange={onInputChange}
                         placeName="출발역"
-                        value={source}/>
+                        value={source}
+                        name="source"/>
           <div className="w-2/12 h-12 text-center text-gray-800 flex justify-center items-center">
             <span className="mdi mdi-arrow-right-thick relative bottom-6px text-lg"/>
           </div>
-          <StationInput onSourceInputChange={onTargetInputChange}
+          <StationInput onInputChange={onInputChange}
                         placeName="도착역"
-                        value={target}/>
+                        value={target}
+                        name="target"/>
         </div>
         <SearchButton onSearchPath={onClickSearchPath}/>
       </form>

@@ -1,10 +1,6 @@
 import React from 'react';
 
-function StationInput({ onSourceInputChange, placeName, value }) {
-  const inputChange = e => {
-    const updatedValue = e.target.value;
-    onSourceInputChange(updatedValue);
-  }
+function StationInput({ onInputChange, placeName, value, name }) {
 
   return (
     <div className="w-5/12 h-12 text-center text-gray-800">
@@ -13,7 +9,8 @@ function StationInput({ onSourceInputChange, placeName, value }) {
         type="text"
         value={value}
         placeholder={placeName}
-        onChange={inputChange}
+        onChange={onInputChange}
+        name={name}
       />
     </div>
   );
