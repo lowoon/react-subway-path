@@ -3,7 +3,7 @@ const BASE_URL = "https://conduit.productionready.io/api";
 export const authRequest = async () => {
   const response = await fetch(`${BASE_URL}/user`, {
     headers: {
-      "Authorization": `Token ${localStorage.getItem("token")}`,
+      "Authorization": localStorage.getItem("token"),
       "Accept": "application/json"
     }
   });
