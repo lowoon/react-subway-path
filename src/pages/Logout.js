@@ -1,13 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { Redirect } from "react-router-dom";
-import { UserContext } from "../App";
 
 const Logout = () => {
-  const { logout } = useContext(UserContext);
-  useEffect(() => {
-    localStorage.removeItem("token");
-    logout();
-  }, []);
+
+  // TODO: 로그아웃 기능 구현
+
   return (
     <Redirect to="/"></Redirect>
   );

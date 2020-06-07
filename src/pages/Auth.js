@@ -1,23 +1,13 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "../App";
-import { loginRequest } from "../util/fetch";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 
 const Auth = () => {
-    const history = useHistory();
-    const { login } = useContext(UserContext);
-
     const [input, setInput] = useState({ email: "", password: "" });
 
     const changeInput = e => {
       setInput({ ...input, [e.target.name]: e.target.value });
     };
 
-    const submit = async e => {
-      e.preventDefault();
-      login(await loginRequest(input));
-      history.goBack();
-    };
+    // TODO: 로그인 기능 구현
 
     return (
       <div className="auth-page">
@@ -46,7 +36,7 @@ const Auth = () => {
                     value={input.password}
                   />
                 </fieldset>
-                <button className="btn btn-lg btn-primary pull-xs-right" onClick={submit}>
+                <button className="btn btn-lg btn-primary pull-xs-right">
                   Login
                 </button>
               </form>
